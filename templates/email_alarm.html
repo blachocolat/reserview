@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <?!= _importHTML('style.css') ?>
+</head>
+
+<body>
+    <p>予定した予約数に到達した商品があります。
+        <br> 必要に応じて、
+        <a href="https://docs.google.com/forms/" target="_blank">Googleフォーム</a>の項目を修正してください。</p>
+    <table>
+        <thead>
+            <tr>
+                <th class="width-fit">#</th>
+                <th>商品名</th>
+                <th class="width-fit">予約数 (確定/予定)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <? reservSumm.some(function(reserv, index) { ?>
+                <tr>
+                    <td class="align-right">
+                        <?= index + 1 ?>
+                    </td>
+                    <td>
+                        <?= reserv.name ?>
+                    </td>
+                    <td class="align-right">
+                        <span class="<?= reserv.actual >= reserv.planned ? 'text-error' : '' ?>">
+                            <?= reserv.actual.commaSeparated() ?>
+                        </span> /
+                        <?= reserv.planned.commaSeparated() ?> 個</td>
+                </tr>
+                <? }) ?>
+        </tbody>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <?!= _importHTML('style.css') ?>
+</head>
+
+<body>
+    <p>以下の商品（予約番号：
+        <em>
+            <?= reservId ?>
+        </em>）の購入を確定しました。</p>
+    <p>
+        <?= customName || 'ゲスト' ?> 様</p>
+    <table>
+        <thead>
+            <th class="width-fit">#</th>
+            <th>商品名</th>
+            <th class="width-fit">単価</th>
+            <th class="width-fit">数量</th>
+            <th class="width-fit">小計</th>
+        </thead>
+        <tbody>
+            <? sum = 0 ?>
+                <? items.some(function(item, index) { ?>
+                    <tr>
+                        <td class="align-right">
+                            <?= index + 1 ?>
+                        </td>
+                        <td>
+                            <?= item.name ?>
+                        </td>
+                        <td class="align-right">¥
+                            <?= item.price.commaSeparated() ?>
+                        </td>
+                        <td class="align-right">
+                            <?= item.count.commaSeparated() ?>
+                        </td>
+                        <td class="align-right">¥
+                            <?= (item.price * item.count).commaSeparated() ?>
+                        </td>
+                        <? sum += item.price * item.count ?>
+                    </tr>
+                    <? }) ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">合計</td>
+                <td class="align-right">¥
+                    <?= sum.commaSeparated() ?>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+
+</html>
