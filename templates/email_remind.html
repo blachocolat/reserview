@@ -3,30 +3,26 @@
 
 <head>
     <base target="_top">
-    <?!= _importHTML('style.css') ?>
+    <?!= _importHTML('templates/style.css') ?>
 </head>
 
 <body>
-    <p>
-        <?= customName || 'ゲスト' ?> 様</p>
-    <p>本メールは、
-        <?= EVENT_NAME ?>にてご予約された商品の引き換えがお済みでない方にお送りしています（タイムラグによるメールの行き違いはご容赦ください）。</p>
+    <p><?= customName || 'ゲスト' ?> 様</p>
+    <p>本メールは、<?= EVENT_NAME ?>にてご予約された商品の引き換えがお済みでない方にお送りしています（タイムラグによるメールの行き違いはご容赦ください）。</p>
     <p>以下の注意事項を再度ご確認の上、お時間までに予約商品の引き換えにお越しいただきますようお願いします。</p>
 
     <h4>◆注意事項</h4>
     <ul>
-        <li>予約商品の引き換えは、【
-            <em>
-                <?= PUBLISHER_NAME ?>（ブース番号：
-                    <?= BOOTH_IDENTIFIER ?>）</em>】にて行います。</li>
-        <li>引き換えの受付時間は、【
-            <em>
-                <?= Utilities.formatString(Utilities.formatDate(RECEPT_START_DATE, 'JST', 'yyyy年M月d日(%\'s\') HH:mm'), RECEPT_START_DATE.getDayOfWeek()) + '-' + Utilities.formatDate(RECEPT_END_DATE, 'JST', 'HH:mm') ?>
-            </em>】となっています。
-            <br> 受付終了時刻までにお越しにならなかった場合、キャンセル扱いとさせていただきます。あらかじめご了承ください。
+        <li>
+            予約商品の引き換えは、【<em><?= PUBLISHER_NAME ?>（ブース番号：<?= BOOTH_IDENTIFIER ?>）</em>】にて行います。
         </li>
-        <li>引き換えには、ご予約時の【お名前】、および本メールに記載の【予約番号】が必要となります。
-            <br> 引き換え時に、お持ちのスマートフォンなどで下記QRコードをご提示いただくとスムーズです。
+        <li>
+            引き換えの受付時間は、【<em><?= Utilities.formatString(Utilities.formatDate(RECEPT_START_DATE, 'JST', 'yyyy年M月d日(%\'s\') HH:mm'), RECEPT_START_DATE.getDayOfWeek()) + '-' + Utilities.formatDate(RECEPT_END_DATE, 'JST', 'HH:mm') ?></em>】となっています。<br>
+            受付終了時刻までにお越しにならなかった場合、キャンセル扱いとさせていただきます。あらかじめご了承ください。
+        </li>
+        <li>
+            引き換えには、ご予約時の【お名前】、および本メールに記載の【予約番号】が必要となります。<br>
+            引き換え時に、お持ちのスマートフォンなどで本メールの画面をご提示いただくとスムーズです。
         </li>
     </ul>
 
@@ -43,48 +39,32 @@
         </thead>
         <tbody>
             <? sum = 0 ?>
-                <? items.some(function(item, index) { ?>
-                    <tr>
-                        <td class="align-right">
-                            <?= index + 1 ?>
-                        </td>
-                        <td>
-                            <?= item.name ?>
-                        </td>
-                        <td class="align-right">¥
-                            <?= item.price.commaSeparated() ?>
-                        </td>
-                        <td class="align-right">
-                            <?= item.count.commaSeparated() ?>
-                        </td>
-                        <td class="align-right">¥
-                            <?= (item.price * item.count).commaSeparated() ?>
-                        </td>
-                        <? sum += item.price * item.count ?>
-                    </tr>
-                    <? }) ?>
+            <? items.some(function(item, index) { ?>
+            <tr>
+                <td class="align-right"><?= index + 1 ?></td>
+                <td><?= item.name ?></td>
+                <td class="align-right">¥<?= item.price.commaSeparated() ?></td>
+                <td class="align-right"><?= item.count.commaSeparated() ?></td>
+                <td class="align-right">¥<?= (item.price * item.count).commaSeparated() ?></td>
+                <? sum += item.price * item.count ?>
+            </tr>
+            <? }) ?>
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="4">合計</td>
-                <td class="align-right">¥
-                    <?= sum.commaSeparated() ?>
-                </td>
+                <td class="align-right">¥<?= sum.commaSeparated() ?></td>
             </tr>
         </tfoot>
     </table>
 
     <div class="box-qr align-center">
-        <img src="cid:qrCode">
-        <br> 予約番号：
-        <em>
-            <?= reservId ?>
-        </em>
+        <img src="cid:qrCode"><br>
+        予約番号：<em><?= reservId ?></em>
     </div>
 
     <p>予約内容に関するご質問・変更などございましたら、【お名前】【予約番号】をご記載の上、本メールにご返信いただきますようお願いします。</p>
-    <p>それでは、後ほど
-        <?= customName ?> 様にお会いできることを心よりお待ちしています。</p>
+    <p>それでは、後ほど <?= customName ?> 様にお会いできることを心よりお待ちしています。</p>
 </body>
 
 </html>

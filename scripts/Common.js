@@ -72,24 +72,3 @@ function _isUniqueInRange(value, range) {
 function _importHTML(fileName) {
     return HtmlService.createHtmlOutputFromFile(fileName).getContent();
 }
-
-// @params {String} longUrl - The URL you want to shorten.
-// @returns {String} - The shortend URL.
-function _shortenUrl(longUrl) {
-    var payload = {
-        longUrl: longUrl
-    };
-
-    var options = {
-        contentType: 'application/json',
-        method: 'post',
-        payload: JSON.stringify(payload)
-    };
-
-    var fetchUrl = Utilities.formatString(
-        'https://www.googleapis.com/urlshortener/v1/url?key=%s', 
-        SHORTENER_API_KEY
-    );
-    var response = UrlFetchApp.fetch(fetchUrl, options);
-    return JSON.parse(response).id;
-}

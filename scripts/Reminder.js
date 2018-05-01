@@ -33,7 +33,7 @@ function remindReservations() {
         });
 
         // Build HTML from template file
-        var html = HtmlService.createTemplateFromFile('email_remind');
+        var html = HtmlService.createTemplateFromFile('templates/email_remind');
         html.customName = values[row][customNameCol - 1];
         html.items = _parseItems(itemSheet, itemCounts);
         html.reservId = reservId;

@@ -3,14 +3,11 @@
 
 <head>
     <base target="_top">
-    <?!= _importHTML('style.css') ?>
+    <?!= _importHTML('templates/style.css') ?>
 </head>
 
 <body>
-    <p>指定された商品（予約番号：
-        <em>
-            <?= reservId ?>
-        </em>）が見つかりませんでした。</p>
+    <p>指定された商品（予約番号：<em><?= reservId ?></em>）が見つかりませんでした。</p>
 </body>
 
 </html>

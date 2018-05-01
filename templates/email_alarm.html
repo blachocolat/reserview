@@ -3,13 +3,14 @@
 
 <head>
     <base target="_top">
-    <?!= _importHTML('style.css') ?>
+    <?!= _importHTML('templates/style.css') ?>
 </head>
 
 <body>
-    <p>予定した予約数に到達した商品があります。
-        <br> 必要に応じて、
-        <a href="https://docs.google.com/forms/" target="_blank">Googleフォーム</a>の項目を修正してください。</p>
+    <p>
+        予定した予約数に到達した商品があります。<br>
+        必要に応じて、<a href="https://docs.google.com/forms/" target="_blank">Googleフォーム</a>の項目を修正してください。
+    </p>
     <table>
         <thead>
             <tr>
@@ -20,20 +21,12 @@
         </thead>
         <tbody>
             <? reservSumm.some(function(reserv, index) { ?>
-                <tr>
-                    <td class="align-right">
-                        <?= index + 1 ?>
-                    </td>
-                    <td>
-                        <?= reserv.name ?>
-                    </td>
-                    <td class="align-right">
-                        <span class="<?= reserv.actual >= reserv.planned ? 'text-error' : '' ?>">
-                            <?= reserv.actual.commaSeparated() ?>
-                        </span> /
-                        <?= reserv.planned.commaSeparated() ?> 個</td>
-                </tr>
-                <? }) ?>
+            <tr>
+                <td class="align-right"><?= index + 1 ?></td>
+                <td><?= reserv.name ?></td>
+                <td class="align-right"><span class="<?= reserv.actual >= reserv.planned ? 'text-error' : '' ?>"><?= reserv.actual.commaSeparated() ?></span> /<?= reserv.planned.commaSeparated() ?> 個</td>
+            </tr>
+            <? }) ?>
         </tbody>
     </table>
 </body>

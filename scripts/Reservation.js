@@ -92,7 +92,7 @@ function _getReservationSummary(itemSheet) {
 // @param {Object[]} reservSumm - The array of reservations
 function _notifyReservationSummary(reservSumm) {
     // Build HTML from template file
-    var html = HtmlService.createTemplateFromFile('email_alarm');
+    var html = HtmlService.createTemplateFromFile('templates/email_alarm');
     html.reservSumm = reservSumm;
 
     var email = Session.getEffectiveUser().getEmail();
@@ -112,19 +112,19 @@ function _clearNotifiedDate() {
 // @param {String} reservId - The reservation ID.
 // @returns {Blob} - The blob of the QR code.
 function _makeQRCode(reservId) {
-    var longUrl = Utilities.formatString(
-        'https://script.google.com/macros/s/%s/exec?rid=%s',
-        ScriptApp.getScriptId(),
+    var scriptUrl = Utilities.formatString(
+        '%s?rid=%s',
+        ScriptApp.getService().getUrl(),
         reservId
     );
 
-    var shortUrl = Utilities.formatString(
+    var qrUrl = Utilities.formatString(
         'https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%s',
-        _shortenUrl(longUrl)
+        encodeURI(scriptUrl)
     );
 
-    var response = UrlFetchApp.fetch(shortUrl);
-    return response.getBlob();
+    var qrCode = UrlFetchApp.fetch(qrUrl);
+    return qrCode.getBlob();
 }
 
 // @param {Event} e - The event object.
@@ -163,7 +163,7 @@ function onFormSubmit(e) {
     }
 
     // Build HTML from template file
-    var html = HtmlService.createTemplateFromFile('email_confirm');
+    var html = HtmlService.createTemplateFromFile('templates/email_confirm');
     html.customName = e.namedValues['お名前'].toString();
     html.items = items;
     html.reservId = reservId;

@@ -1,5 +1,3 @@
-SHORTENER_API_KEY = '...';  // Specify your API key
-
 PUBLISHER_NAME = 'こぐまやん';
 EVENT_NAME = 'ゲームマーケット2018春';
 EVENT_SHORT_NAME = 'ゲムマ2018春';

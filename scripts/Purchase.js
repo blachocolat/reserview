@@ -39,7 +39,7 @@ function doGet(e) {
         if (values[row][reservIdCol - 1] === reservId) {
             if (values[row][purchDateCol - 1] !== '') {
                 // Already purchased
-                html = HtmlService.createTemplateFromFile('purchase_already');
+                html = HtmlService.createTemplateFromFile('templates/purchase_already');
                 break;
             }
 
@@ -49,7 +49,7 @@ function doGet(e) {
                 itemCounts[itemName] = values[row][itemCol - 1];
             });
 
-            html = HtmlService.createTemplateFromFile('purchase_success');
+            html = HtmlService.createTemplateFromFile('templates/purchase_success');
             html.customName = values[row][customNameCol - 1];
             html.items = _parseItems(itemSheet, itemCounts);
 
@@ -62,7 +62,7 @@ function doGet(e) {
     }
 
     if (!html) {
-        html = HtmlService.createTemplateFromFile('purchase_failure');
+        html = HtmlService.createTemplateFromFile('templates/purchase_failure');
     }
     html.reservId = reservId;
 
