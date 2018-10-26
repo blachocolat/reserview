@@ -54,7 +54,7 @@ function doGet(e) {
             html.items = _parseItems(itemSheet, itemCounts);
 
             // Update the purchased date
-            var purchDate = Utilities.formatDate(new Date(), 'JST', 'yyyy/MM/dd HH:mm:SS');
+            var purchDate = Utilities.formatDate(new Date(), 'JST', 'yyyy/MM/dd HH:mm:ss');
             reservSheet.getRange(parseInt(row) + 2, purchDateCol).setValue(purchDate);
 
             break;
